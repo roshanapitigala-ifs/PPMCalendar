@@ -23,6 +23,7 @@ public class PSHActivity extends FragmentActivity {
 
     RecyclerView rv;
     PSHRVAdapter adapter;
+    LinearLayoutManager lmanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,21 @@ public class PSHActivity extends FragmentActivity {
         rv = findViewById(R.id.pshrv);
         adapter = new PSHRVAdapter();
         rv.setAdapter(adapter);
-        rv.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        lmanager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        rv.setLayoutManager(lmanager);
 
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rv);
+
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                System.out.println("POSITION: " + lmanager.getPosition(snapHelper.findSnapView(lmanager)));
+            }
+
+        });
     }
 }
 
