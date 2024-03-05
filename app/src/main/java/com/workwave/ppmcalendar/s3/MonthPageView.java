@@ -12,9 +12,9 @@ import com.workwave.ppmcalendar.R;
 
 public class MonthPageView {
 
-    static int sMonthId;
+    static volatile int sMonthId;
 
-    private int monthId;
+    private volatile int monthId;
     private View view;
     private GridView gv;
     private GVAdapter adapter;

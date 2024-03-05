@@ -45,12 +45,13 @@ public class PSHActivity extends FragmentActivity {
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                System.out.println("POSITION: " + lmanager.getPosition(snapHelper.findSnapView(lmanager)));
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                    System.out.println("POSITION: " + lmanager.getPosition(snapHelper.findSnapView(lmanager)));
             }
 
         });
+
+        rv.scrollToPosition(6);
     }
 }
 
@@ -70,7 +71,7 @@ class PSHRVAdapter extends RecyclerView.Adapter<PSHRVVH> {
 
     @Override
     public int getItemCount() {
-        return 12;
+        return 13;
     }
 }
 
