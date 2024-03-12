@@ -8,6 +8,7 @@ import android.view.View;
 import com.workwave.ppmcalendar.s1.MainActivity;
 import com.workwave.ppmcalendar.s2.GVActivity;
 import com.workwave.ppmcalendar.s3.PSHActivity;
+import com.workwave.ppmcalendar.s4.S4Activity;
 
 public class LaunchActivity extends Activity {
 
@@ -27,5 +28,9 @@ public class LaunchActivity extends Activity {
 
     public void onClickS3(View v){
         startActivity(new Intent(this, PSHActivity.class));
+    }
+
+    public void onClickS4(View v){
+        startActivity(new Intent(this, S4Activity.class));
     }
 }

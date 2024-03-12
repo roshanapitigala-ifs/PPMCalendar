@@ -5,6 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="GridView, PagerSnapHelper and RecyclerView with LinearLayoutManager(Horizontal)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/s3" />
+
+
     <Button
         android:id="@+id/s1"
         android:layout_width="wrap_content"
@@ -64,6 +77,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/s2" />
 
+
+    <Button
+        android:id="@+id/s4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:onClick="onClickS4"
+        android:text="Solution 4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/s3" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,9 +96,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
-        android:text="GridView, PagerSnapHelper and RecyclerView with LinearLayoutManager(Horizontal)"
+        android:text="Infinite scrolling ViewPager with only 3 GridViews"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/s3" />
+        app:layout_constraintTop_toBottomOf="@+id/s4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
