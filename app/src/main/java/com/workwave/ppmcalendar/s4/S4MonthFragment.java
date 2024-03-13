@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.workwave.ppmcalendar.R;
@@ -58,6 +59,12 @@ public class S4MonthFragment extends Fragment {
         monthNameStr = monthName;
         if (monthNameTV != null)
             monthNameTV.setText(monthNameStr);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("GCed Page Obj: " + fragId);
     }
 }
 

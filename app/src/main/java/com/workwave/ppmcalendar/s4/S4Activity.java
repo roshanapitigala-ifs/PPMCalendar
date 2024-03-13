@@ -15,7 +15,9 @@ import java.util.ArrayList;
 public class S4Activity extends FragmentActivity {
 
     ViewPager2 vp;
-    FragmentStateAdapter vpAdapter;
+    S4VPAdapter vpAdapter;
+
+    int currentMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +30,46 @@ public class S4Activity extends FragmentActivity {
         vp = findViewById(R.id.viewPager);
         vpAdapter = new S4VPAdapter(this);
         vp.setAdapter(vpAdapter);
-//        vp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                System.out.println("VP:" + position);
-//            }
-//        });
-        vp.setCurrentItem(1);
+        vp.setCurrentItem(1, false);
+        currentMonth = 6;
         vp.setOffscreenPageLimit(1);
+        vpAdapter.setMonth(currentMonth, 1);
+
+        vp.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    if (vp.getCurrentItem() == 0 && currentMonth == 1) // at the left edge, scrolling left
+                        return;
+                    if (vp.getCurrentItem() == 2 && currentMonth == 12) // at the right edge, scrolling right
+                        return;
+
+                    if (vp.getCurrentItem() == 1 && currentMonth == 1) // scrolled out of left edge
+                        executeScrolledAction(true, false);
+                    if (vp.getCurrentItem() == 1 && currentMonth == 12) // scrolled out of right edge
+                        executeScrolledAction(true, true);
+                    else if (vp.getCurrentItem() != 1) // scrolled
+                        executeScrolledAction(false, false);
+                }
+            }
+
+            private void executeScrolledAction(boolean fromAnEdge, boolean fromRightEdge){
+                if ((fromAnEdge && fromRightEdge) || isLeftScrolled())
+                    currentMonth--;
+                else
+                    currentMonth++;
+
+                if (currentMonth > 1 && currentMonth < 12) {
+                    vp.setCurrentItem(1, false);
+                    vpAdapter.setMonth(currentMonth, 1);
+                } else
+                    vpAdapter.setMonth(currentMonth, vp.getCurrentItem());
+            }
+
+            private boolean isLeftScrolled(){
+                return vp.getCurrentItem() == 0;
+            }
+        });
     }
 
     private class S4VPAdapter extends FragmentStateAdapter {
@@ -44,25 +78,24 @@ public class S4Activity extends FragmentActivity {
 
         public S4VPAdapter(@NonNull FragmentActivity fragmentActivity) {
             super(fragmentActivity);
-            pages.add(null);
-            pages.add(null);
-            pages.add(null);
+            pages.add(new S4MonthFragment());
+            pages.add(new S4MonthFragment());
+            pages.add(new S4MonthFragment());
         }
 
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            if (pages.get(position) == null) {
-                S4MonthFragment monthFrag = new S4MonthFragment();
-                monthFrag.setData((position < 9 ? "Month 0" : "Month") + (position+1));
-                pages.set(position, monthFrag);
-            }
             return pages.get(position);
         }
 
         @Override
         public int getItemCount() {
             return 3;
+        }
+
+        public void setMonth(int month, int position){
+            pages.get(position).setData((month < 10 ? "Month 0" : "Month ") + month);
         }
     }
 }

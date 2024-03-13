@@ -21,12 +21,12 @@ public class MonthPageView {
 
     public MonthPageView() {
         monthId = ++sMonthId;
-        System.out.println("Creating Month: " + monthId);
+        System.out.println("Creating Page: " + monthId);
     }
 
-    public void setup(){
+    public void setup(int position) {
         gv.setAdapter(adapter);
-        ((TextView) view.findViewById(R.id.monthName)).setText(("Month " + monthId));
+        ((TextView) view.findViewById(R.id.monthName)).setText(("Month " + (position+1)));
     }
 
     public View createView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
@@ -34,6 +34,12 @@ public class MonthPageView {
         gv = view.findViewById(R.id.gvDates);
         adapter = new GVAdapter(inflater);
         return view;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("GCed Page Obj: " + monthId);
     }
 }
 
@@ -65,7 +71,7 @@ class GVAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.cell_day, parent, false);
 
-        ((TextView)convertView.findViewById(R.id.date)).setText(String.valueOf(++position));
+        ((TextView) convertView.findViewById(R.id.date)).setText((position < 9 ? "0" : "") + (position + 1));
         return convertView;
     }
 }

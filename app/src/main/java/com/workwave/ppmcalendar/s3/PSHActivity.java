@@ -19,6 +19,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.workwave.ppmcalendar.R;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class PSHActivity extends FragmentActivity {
 
     RecyclerView rv;
@@ -66,7 +69,7 @@ class PSHRVAdapter extends RecyclerView.Adapter<PSHRVVH> {
 
     @Override
     public void onBindViewHolder(@NonNull PSHRVVH holder, int position) {
-        holder.setup();
+        holder.setup(position);
     }
 
     @Override
@@ -88,7 +91,7 @@ class PSHRVVH extends RecyclerView.ViewHolder {
         viewObj = obj;
     }
 
-    public void setup() {
-        viewObj.setup();
+    public void setup(int position) {
+        viewObj.setup(position);
     }
 }
